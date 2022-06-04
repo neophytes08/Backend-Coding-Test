@@ -29,4 +29,14 @@ describe('API tests', () => {
                 .expect(200, done);
         });
     });
+
+    describe('GET /rides', () => {
+        it('should return lists of rides', (done) => {
+            request(app)
+                .get('/rides')
+                .send('page=0&limit=10')
+                .expect('Content-Type', /json/)
+                .expect(200, done);
+        });
+    });
 });

@@ -65,7 +65,22 @@
       },
       "get": {
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+
+            "name": "limit",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
