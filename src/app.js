@@ -104,24 +104,39 @@ module.exports = (db) => {
     );
   });
 
-  app.get("/rides", (req, res) => {
-    db.all("SELECT * FROM Rides", function (err, rows) {
-      if (err) {
-        return res.send({
-          error_code: "SERVER_ERROR",
-          message: "Unknown error",
-        });
-      }
+  app.get("/rides", async (req, res) => {
+    // pagination
+    const page = req.query ? req.query.page : 0;
+    const limit = req.query ? req.query.limit : 2;
+    const offset = page * limit;
 
-      if (rows.length === 0) {
-        return res.send({
-          error_code: "RIDES_NOT_FOUND_ERROR",
-          message: "Could not find any rides",
+    try {
+        const results = await new Promise((resolve, reject) => {
+            db.all(`select * from Rides order by rideId asc limit ${limit} offset ${offset}`, (err, rows) => {
+                resolve(rows);
+            });
         });
-      }
 
-      res.send(rows);
-    });
+        if (results?.length === 0) {
+            return res.send({
+                error_code: "RIDES_NOT_FOUND_ERROR",
+                message: "Could not find any rides",
+            });
+        }
+
+      res.send({
+          count: results?.length,
+          page: 1,
+          limit: limit,
+          data: results
+      });
+    } catch(error) {
+        console.log(error);
+        return res.send({
+            error_code: "SERVER_ERROR",
+            message: "Unknown error",
+        });
+    }
   });
 
   app.get("/rides/:id", (req, res) => {
