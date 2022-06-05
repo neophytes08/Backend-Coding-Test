@@ -6,7 +6,8 @@
         "node": true
     },
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "allowImportExportEverywhere": true
     },
     "rules": {
     }
