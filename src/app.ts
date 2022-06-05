@@ -6,6 +6,7 @@ const jsonParser = bodyParser.json();
 
 import { Ride } from "./interface/ride.interface";
 import { RideLists } from "./interface/ride-lists.interface";
+import { removeSpecialCharacters } from "./utils/helpers";
 
 module.exports = (db: any) => {
   app.get("/health", (req, res) => res.send("Healthy"));
@@ -65,9 +66,9 @@ module.exports = (db: any) => {
       payload.start_long,
       payload.end_lat,
       payload.end_long,
-      payload.rider_name,
-      payload.driver_name,
-      payload.driver_vehicle,
+      removeSpecialCharacters(payload.rider_name.trim()),
+      removeSpecialCharacters(payload.driver_name.trim()),
+      removeSpecialCharacters(payload.driver_vehicle.trim()),
     ];
 
     try {

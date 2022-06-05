@@ -16,6 +16,7 @@ const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const body_parser_1 = __importDefault(require("body-parser"));
 const jsonParser = body_parser_1.default.json();
+const helpers_1 = require("./utils/helpers");
 module.exports = (db) => {
     app.get("/health", (req, res) => res.send("Healthy"));
     app.post("/rides", jsonParser, (req, res) => {
@@ -61,9 +62,9 @@ module.exports = (db) => {
             payload.start_long,
             payload.end_lat,
             payload.end_long,
-            payload.rider_name,
-            payload.driver_name,
-            payload.driver_vehicle,
+            (0, helpers_1.removeSpecialCharacters)(payload.rider_name.trim()),
+            payload.driver_name.trim(),
+            payload.driver_vehicle.trim(),
         ];
         try {
             return db.run("INSERT INTO Rides(startLat, startLong, endLat, endLong, riderName, driverName, driverVehicle) VALUES (?, ?, ?, ?, ?, ?, ?)", values, (err) => __awaiter(void 0, void 0, void 0, function* () {
