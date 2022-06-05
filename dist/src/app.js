@@ -63,8 +63,8 @@ module.exports = (db) => {
             payload.end_lat,
             payload.end_long,
             (0, helpers_1.removeSpecialCharacters)(payload.rider_name.trim()),
-            payload.driver_name.trim(),
-            payload.driver_vehicle.trim(),
+            (0, helpers_1.removeSpecialCharacters)(payload.driver_name.trim()),
+            (0, helpers_1.removeSpecialCharacters)(payload.driver_vehicle.trim()),
         ];
         try {
             return db.run("INSERT INTO Rides(startLat, startLong, endLat, endLong, riderName, driverName, driverVehicle) VALUES (?, ?, ?, ?, ?, ?, ?)", values, (err) => __awaiter(void 0, void 0, void 0, function* () {
