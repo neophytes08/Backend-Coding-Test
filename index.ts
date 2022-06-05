@@ -1,21 +1,17 @@
-"use strict";
-
-const express = require("express");
+import express, { Express, Request, Response } from 'express';
 const app = express();
 const port = 8010;
 
-const bodyParser = require("body-parser");
-const jsonParser = bodyParser.json();
-
-const sqlite3 = require("sqlite3").verbose();
+import sqlite3 from "sqlite3";
+sqlite3.verbose();
 const db = new sqlite3.Database(":memory:");
 
 const buildSchemas = require("./src/schemas");
 
-const swaggerUi = require("swagger-ui-express");
-const swaggerFile = require("./swagger_output.json");
+import swaggerUi from "swagger-ui-express";
+import swaggerFile from "./swagger_output.json";
 
-const winston = require("winston");
+import winston from "winston";
 const logger = winston.createLogger({
   level: "info",
   format: winston.format.json(),

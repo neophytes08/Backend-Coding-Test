@@ -62,6 +62,3 @@ typings/
 
 # husky
 .husky
-
-# dist
-.dist/*
