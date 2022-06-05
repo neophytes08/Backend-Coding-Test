@@ -1,0 +1,11 @@
+config:
+  target: "http://localhost:8010"
+  phases:
+    - duration: 30
+      arrivalRate: 100
+ 
+scenarios:
+  - name: "Retrieve data"
+    flow:
+      - get:
+          url: "/rides?page=1&limit=10"
