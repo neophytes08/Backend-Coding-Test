@@ -8,4 +8,8 @@ scenarios:
   - name: "Retrieve data"
     flow:
       - get:
+          url: "/health"
+      - get:
           url: "/rides?page=1&limit=10"
+      - get:
+          url: "/rides/1"
